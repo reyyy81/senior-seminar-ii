@@ -40,12 +40,11 @@ export default function Signup({ visible, onClose }) {
     <Modal visible={visible} transparent animationType="slide">
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0,0.5)" }}>
         <View style={{ backgroundColor: "white", padding: 20, borderRadius: 15, width: "85%", alignItems: "center" }}>
-          
+
           {/* Close Button */}
           <TouchableOpacity onPress={onClose} style={{ position: "absolute", top: 15, right: 15 }}>
             <Ionicons name="close" size={24} color="black" />
           </TouchableOpacity>
-
           {/* DropSpot's Logo */}
           {/* <Image
             source={{ uri: "" }} // Placeholder Logo
@@ -143,7 +142,7 @@ export default function Signup({ visible, onClose }) {
           <Pressable
             onPress={handleSignup}
             style={{
-              backgroundColor: "#E60023",
+              backgroundColor: "black",
               paddingVertical: 12,
               width: "100%",
               borderRadius: 8,

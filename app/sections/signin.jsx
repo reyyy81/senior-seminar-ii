@@ -100,7 +100,7 @@ export default function Signin({ visible, onClose }) {
           <Pressable
             onPress={handleSignin}
             style={{
-              backgroundColor: "#E60023",
+              backgroundColor: "black",
               paddingVertical: 12,
               width: "100%",
               borderRadius: 8,
