@@ -9,7 +9,6 @@ export default function Signin({ visible, onClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
 
-  // Add validation function
   const validateEmail = (email) => {
     if (!email.endsWith("@gmail.com")) {
       setEmailError("Please use a valid email address");

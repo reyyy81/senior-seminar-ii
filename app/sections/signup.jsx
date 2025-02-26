@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, Modal, Image, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Pressable, Modal, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DatePicker from "react-native-date-picker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { router } from "expo-router";
 
 export default function Signup({ visible, onClose }) {
@@ -9,30 +11,30 @@ export default function Signup({ visible, onClose }) {
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   // Handle date selection
-  const onChangeDate = (event, selectedDate) => {
-    setShowDatePicker(false);
+  const onConfirmDate = (selectedDate) => {
     if (selectedDate) {
-      setDob(selectedDate.toISOString().split("T")[0]); // Format as YYYY-MM-DD
+      setDob(new Date(selectedDate)); // Always store as Date
     }
+    setShowDatePicker(false); // Close picker after selection
   };
+  
 
   // handle signup and navigate to index page
   const handleSignup = () => {
-    // Todo: This is simulated signup logic (Later, send data to backend when you're ready)
-    console.log("User signed up:", { email, password, dob });
+    console.log("User signed up:", { email, password, dob 
+    // console.log("User signed up:", { email, password, dob: dob?.toISOString().split("T")[0] 
+    });
 
-    // Close modal
     if (onClose) {
       onClose();
     } else {
       console.error("onClose is undefined. Make sure it is passed as a prop.");
     }
 
-    // Navigate to index.tsx (Home Screen)
     router.push("/");
   };
 
@@ -45,14 +47,9 @@ export default function Signup({ visible, onClose }) {
           <TouchableOpacity onPress={onClose} style={{ position: "absolute", top: 15, right: 15 }}>
             <Ionicons name="close" size={24} color="black" />
           </TouchableOpacity>
-          {/* DropSpot's Logo */}
-          {/* <Image
-            source={{ uri: "" }} // Placeholder Logo
-            style={{ width: 50, height: 50, marginBottom: 10 }}
-          /> */}
 
           {/* Title */}
-          <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center" }}>Unlimited free access to the world's best ideas</Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center" }}>Unlimited free access to the world's best spots</Text>
           <Text style={{ color: "gray", marginTop: 5 }}>Sign up to see more</Text>
 
           {/* Email Input */}
@@ -123,20 +120,30 @@ export default function Signup({ visible, onClose }) {
                 borderRadius: 8,
               }}
             >
-              <Text style={{ color: dob ? "black" : "gray" }}>{dob || "mm/dd/yyyy"}</Text>
+              <Text style={{ color: dob ? "black" : "gray" }}>
+                {/* {dob 
+                ? dob.toISOString().split("T")[0] : "mm/dd/yyyy"
+                } */}
+                {dob ? dob.toISOString().split("T")[0] : "mm/dd/yyyy"
+                }
+              </Text>
               <Ionicons name="calendar-outline" size={20} color="gray" />
             </Pressable>
           </View>
 
-          {/* Date Picker */}
-          {showDatePicker && (
-            <DateTimePicker
-              value={dob ? new Date(dob) : new Date()}
-              mode="date"
-              display="default"
-              onChange={onChangeDate}
-            />
+          {/* Date Picker Modal */}
+          { showDatePicker && (
+            <DatePicker
+            modal
+            open={showDatePicker}
+            date={dob || new Date()}
+            mode="date"
+            onConfirm={onConfirmDate}
+            onCancel={() => setShowDatePicker(false)}
+            maximumDate={new Date()} // Prevents future dates
+          />
           )}
+          
 
           {/* Continue Button (Triggers Navigation) */}
           <Pressable
