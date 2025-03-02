@@ -1,24 +1,17 @@
-import { View } from "react-native";
-import { useState } from "react";
 import WelcomeScreen from "./sections/WelcomeScreen";
-import Signup from "./sections/Signup";
-import Signin from "./sections/Signin";
+
 
 export default function Index() {
-  const [showSignup, setShowSignup] = useState(false);
-  const [showSignin, setShowSignin] = useState(false);
-
   return (
-    <View style={{ flex: 1 }}>
-      {/* Show the Pinterest-style Welcome Screen */}
-      <WelcomeScreen onSignup={() => setShowSignup(true)} onSignin={() => setShowSignin(true)} />
-
-      {/* Signup & Signin Modals */}
-      {showSignup && <Signup visible={showSignup} onClose={() => setShowSignup(false)} />}
-      {showSignin && <Signin visible={showSignin} onClose={() => setShowSignin(false)} />}
-    </View>
+      <WelcomeScreen/>
   );
 }
+
+
+
+
+
+
 
 
 

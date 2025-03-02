@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, Modal, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Pressable, Modal, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-export default function Signin({ visible, onClose }) {
+export default function Signin({ visible, onClose = () => {} }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -17,45 +17,32 @@ export default function Signin({ visible, onClose }) {
     }
   };
 
-  // Handle Sign In Todo: Fetch details from backend
+  // Handle Sign In (To Do: Fetch details from backend)
   const handleSignin = () => {
     console.log("User signed in:", { email, password });
-
-    //  Ensure onClose exists before calling it
-    if (typeof onClose === "function") {
-      onClose();
-    } else {
-      console.error("onClose is undefined. Make sure it is passed as a prop.");
-    }
-
-    //  Navigate to Home Page (index.tsx)
-    router.push("/");
+  
+    onClose();
+    setTimeout(() => {
+      router.push("/sections/FypScreen");
+    }, 30); 
+    console.log('sig in complete, checking');
   };
+  
 
   return (
     <Modal visible={visible} transparent animationType="slide">
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0,0.5)" }}>
-        <View style={{ backgroundColor: "white", padding: 20, borderRadius: 15, width: "85%", alignItems: "center" }}>
+      <View style={styles.overlay}>
+        <View style={styles.modalContainer}>
           
-          {/* Close Button */}
-          <TouchableOpacity onPress={onClose} style={{ position: "absolute", top: 15, right: 15 }}>
+          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
             <Ionicons name="close" size={24} color="black" />
           </TouchableOpacity>
 
-          {/* Title */}
-          <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center" }}>Welcome Back</Text>
-          <Text style={{ color: "gray", marginTop: 5 }}>Sign in to continue</Text>
+          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.subtitle}>Sign in to continue</Text>
 
-          {/* Email Input */}
           <TextInput
-            style={{
-              width: "100%",
-              borderWidth: 1,
-              borderColor: emailError ? "#E60023" : "#ddd",
-              padding: 12,
-              borderRadius: 8,
-              marginTop: 15,
-            }}
+            style={[styles.input, emailError ? styles.errorInput : null]}
             placeholder="Email address"
             keyboardType="email-address"
             value={email}
@@ -64,27 +51,11 @@ export default function Signin({ visible, onClose }) {
               validateEmail(text);
             }}
           />
-          {emailError ? (
-            <Text style={{ color: "#E60023", fontSize: 12, alignSelf: "flex-start", marginTop: 5 }}>
-              {emailError}
-            </Text>
-          ) : null}
+          {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
-          {/* Password Input */}
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              width: "100%",
-              borderWidth: 1,
-              borderColor: "#ddd",
-              padding: 12,
-              borderRadius: 8,
-              marginTop: 15,
-            }}
-          >
+          <View style={styles.passwordContainer}>
             <TextInput
-              style={{ flex: 1 }}
+              style={styles.passwordInput}
               placeholder="Password"
               secureTextEntry={!showPassword}
               value={password}
@@ -95,22 +66,85 @@ export default function Signin({ visible, onClose }) {
             </TouchableOpacity>
           </View>
 
-          {/* ✅ Sign In Button */}
-          <Pressable
-            onPress={handleSignin}
-            style={{
-              backgroundColor: "black",
-              paddingVertical: 12,
-              width: "100%",
-              borderRadius: 8,
-              alignItems: "center",
-              marginTop: 20,
-            }}
-          >
-            <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Sign In</Text>
+          <Pressable onPress={handleSignin} style={styles.signinButton}>
+            <Text style={styles.signinText}>Sign In</Text>
           </Pressable>
         </View>
       </View>
     </Modal>
   );
 }
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 15,
+    width: "85%",
+    alignItems: "center",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 15,
+    right: 15,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  subtitle: {
+    color: "gray",
+    marginTop: 5,
+  },
+  input: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 15,
+  },
+  errorInput: {
+    borderColor: "#E60023",
+  },
+  errorText: {
+    color: "#E60023",
+    fontSize: 12,
+    alignSelf: "flex-start",
+    marginTop: 5,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 15,
+  },
+  passwordInput: {
+    flex: 1,
+  },
+  signinButton: {
+    backgroundColor: "black",
+    paddingVertical: 12,
+    width: "100%",
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  signinText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+});
+
