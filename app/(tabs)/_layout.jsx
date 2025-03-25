@@ -8,6 +8,15 @@ export default function RootLayout() {
       screenOptions={{
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",
+        headerShown: false,
+        tabBarStyle: {
+          height: "8%",
+          paddingLeft: 18,
+          paddingRight: 18,
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: 5,
+        },
         // If you want to hide labels at some point in any screen:
         // tabBarShowLabel: false,
       }}
@@ -20,7 +29,7 @@ export default function RootLayout() {
             <Ionicons
               name={focused ? "home-sharp" : "home-outline"}
               color={color}
-              size={24}
+              size={27}
             />
           ),
         }}
@@ -33,7 +42,7 @@ export default function RootLayout() {
             <Ionicons
               name={focused ? "search" : "search-outline"}
               color={color}
-              size={24}
+              size={27}
             />
           ),
         }}
@@ -46,7 +55,7 @@ export default function RootLayout() {
             <Ionicons
               name={focused ? "add-circle" : "add-circle-outline"}
               color={color}
-              size={24}
+              size={27}
             />
           ),
         }}
@@ -59,7 +68,7 @@ export default function RootLayout() {
             <Ionicons
               name={focused ? "bookmark" : "bookmark-outline"}
               color={color}
-              size={24}
+              size={27}
             />
           ),
         }}
@@ -72,7 +81,7 @@ export default function RootLayout() {
             <Ionicons
               name={focused ? "person" : "person-outline"}
               color={color}
-              size={24}
+              size={27}
             />
           ),
         }}
