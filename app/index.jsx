@@ -2,7 +2,7 @@ import WelcomeScreen from "./sections/WelcomeScreen";
 
 
 export default function Index() {
-  return (
+  return ( 
       <WelcomeScreen/>
   );
 }
