@@ -2,7 +2,7 @@ export default [
     {
       id: 1,
       image: require('../images/alley.png'),
-      location: 'Thailand',
+      location: 'Turkey',
       type: 'image'
     },
     {
@@ -20,13 +20,13 @@ export default [
     {
       id: 4,
       image: require('../images/bali.png'),
-      location: 'Maldives',
+      location: 'Bali',
       type: 'image'
     },
     {
       id: 5,
       image: require('../images/louisiana.png'),
-      location: 'Venice',
+      location: 'Louisiana',
       type: 'image'
     },
     {
@@ -34,6 +34,31 @@ export default [
       image: require('../images/nailsalon.png'),
       location: 'California',
       type: 'image'
-    }
+    },
+    {
+      id: 7,
+      image: require('../images/SearchPosts/gym.png'),
+      location: 'Nashville',
+      type: 'image'
+    },
+    {
+      id: 8,
+      image: require('../images/SearchPosts/asian food.png'),
+      location: 'Nashville',
+      type: 'image'
+    },
+    {
+      id: 9,
+      image: require('../images/SearchPosts/pilates.png'),
+      location: 'Nashville',
+      type: 'image'
+    },
+    {
+      id: 10,
+      image: require('../images/SearchPosts/restaurant.png'),
+      location: 'Nashville',
+      type: 'image'
+    },
+    
   ];
   
