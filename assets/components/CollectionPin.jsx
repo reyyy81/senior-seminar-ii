@@ -24,7 +24,7 @@ export function CollectionPin(props) {
 
 const styles = StyleSheet.create({
     collectionPin: {width: 170, height: 160, flex:1, backgroundColor: "#eaeaea", borderRadius: 15, marginRight: 10},
-    overlay: {position: "absolute", bottom: 0, left: 0, right: 0, height: "100%", backgroundColor: "#54545465", borderTopLeftRadius: 15, borderTopRightRadius:15,  alignContent: "center", justifyContent: "center", padding:10},
+    overlay: {position: "absolute", bottom: 0, left: 0, right: 0, height: "100%", backgroundColor: "#54545470", borderTopLeftRadius: 15, borderTopRightRadius:15,  alignContent: "center", justifyContent: "center", padding:10},
     owner: {flexDirection: "row", alignContent: "center", height: "20%", borderBottomLeftRadius: 15, borderBottomRightRadius:15, backgroundColor:"white", marginLeft:3, marginRight:3, marginBottom: 3, alignContent: "center", justifyContent: "center"},
     ownerText: {color: "black", fontSize: 15, fontFamily: "DMSans_400Regular", marginTop: 5, marginLeft: 5, width: 120}
 });

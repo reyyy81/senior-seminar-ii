@@ -1,39 +1,44 @@
 import { Ionicons } from "@expo/vector-icons";
 import { React, useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image} from "react-native";
+import { useRouter } from "expo-router";
+import { View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
 
 const picFormat = "https://drive.google.com/uc?export=view&id="; // add image id to this format
 
 export function DropPin(props) {
-  const {primaryImage, location, count, secondaryImage = null} = props.pin;
-  
+  const {primaryImage, location, count, id, secondaryImage = null} = props.pin;
+  const router = useRouter();
+
   const [ratio, setRatio] = useState(1);
+
+  const handlePress = () => {
+    router.navigate({pathname: "/pages/PinPage", params:{id : id, ratio: ratio}}); // Navigate to PinPage and pass the pin data
+  };
 
   useEffect(() => {
     Image.getSize(picFormat+ primaryImage, (width, height) => setRatio(width/height));
   }, [primaryImage]);
   if (count === 1) {
     return (
-    
-         <View style={styles.drop}>
+      <TouchableOpacity onPress={handlePress} style={styles.drop}>
               <Image source={{uri : picFormat+ primaryImage}} style={[styles.primary, {aspectRatio: ratio}]}/>
               <View style={styles.locationContainer}>
               <Ionicons name="location-outline" size={14} color="black"/>
               <Text style={styles.text}>{location}</Text>
               </View>
-        </View>
+        </TouchableOpacity>
     );}
     else {
     return (
       
-        <View style={styles.drop}>
+      <TouchableOpacity onPress={handlePress} style={styles.drop}>
             <Image source={{uri : picFormat+ primaryImage}} style={[styles.primaryTop, {aspectRatio: ratio}]}/>
             <Image source={{uri : picFormat+ secondaryImage}} style={[styles.secondary, {aspectRatio: ratio}]}/>
             <View style={styles.locationContainer}>
             <Ionicons name="location-outline" size={14} color="black"/>
             <Text style={styles.text}>{location}</Text>
             </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

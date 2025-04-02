@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 
+
 const genres = ["Travel", "Hiking", "Self-care", "Public Spaces", "Hanging out", "Solo dates", "Exercise", "Food and drinks", "Live Music"];
 
 export default function SelectInterests() {
@@ -36,7 +37,7 @@ export default function SelectInterests() {
       </View>
       {selectedGenres.length >= 3 && (
         <Pressable style={styles.nextButton} 
-        onPress={() => router.push("/(tabs)/FypScreen")}> 
+        onPress={() => router.push("/sections/GetLocation")}> 
           <Text style={styles.nextButtonText}>Next</Text>
         </Pressable>
       )}

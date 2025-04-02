@@ -5,6 +5,7 @@ import {DMSans_500Medium} from '@expo-google-fonts/dm-sans';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
 import { Stack } from "expo-router";
+import { UserProvider } from "../assets/components/UserContext";
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -25,11 +26,18 @@ export default function RootLayout() {
   }
   
   return (
-    <>
+    <UserProvider>
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="sections/SelectInterests" options={{ headerShown: true, title:"", headerShadowVisible: false }} />
+      <Stack.Screen name="sections/GetLocation" options={{ headerShown: true, title: "Location", headerShadowVisible: false}} />
+
+      <Stack.Screen name="sections/Signin" options={{ headerShown: false }} />
+      <Stack.Screen name="sections/Signup" options={{ headerShown: false }} />
+      <Stack.Screen name="pages/PinPage" options={{ headerShown: true, title: "", headerShadowVisible: false}} />
+    
       <Stack.Screen name= "(tabs)" options={{headerShown: false}}/>
     </Stack>
-    </>
+    </UserProvider>
   )
 }

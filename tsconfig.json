@@ -13,7 +13,9 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
+    "app/(tabs)/ProfileScreen.jsx",
+    "app/index.jsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/(tabs)/ProfileScreen.jsx", "app/index.jsx"  ]
+  ]
 }
