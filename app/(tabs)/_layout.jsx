@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function RootLayout() {
+  try {
   return (
     <Tabs
       // Global options for all tabs
@@ -79,4 +80,8 @@ export default function RootLayout() {
       />
     </Tabs>
   );
+} catch (e) {
+  console.error('Layout Error:', e);
+  return <Text>Something broke</Text>;
+}
 }

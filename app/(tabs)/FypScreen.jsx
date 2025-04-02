@@ -1,4 +1,3 @@
-
 import { Ionicons } from '@expo/vector-icons';
 import  {DropsLayout}  from '../../assets/components/DropsLayout';
 import {React, useState} from "react";

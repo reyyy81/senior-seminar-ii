@@ -23,7 +23,7 @@ export default function Signin({ visible, onClose = () => {} }) {
   
     onClose();
     setTimeout(() => {
-      router.push("/tabs/FypScreen");
+      router.push("/(tabs)/FypScreen");
     }, 30); 
     console.log('sign in complete, checking');
   };
