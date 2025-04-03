@@ -4,24 +4,36 @@
     "slug": "drop_spot",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.awan.reyyy.drop-spot"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.awan.reyyy.drop_spot",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "package": "com.awan.reyyy.drop_spot"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
       "expo-font"
     ],
     "experiments": {
@@ -34,12 +46,6 @@
       "eas": {
         "projectId": "20dd093b-844e-4215-ae82-23ddbeaa91b1"
       }
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/20dd093b-844e-4215-ae82-23ddbeaa91b1"
     }
   }
 }
