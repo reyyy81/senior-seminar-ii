@@ -1,14 +1,13 @@
-
 import { Ionicons } from '@expo/vector-icons';
-import { DropsLayout } from '../../assets/components/DropsLayout';
+import  {DropsLayout}  from '../../assets/components/DropsLayout';
 import {React, useState} from "react";
 import drops from "../../assets/data/Drops";
 import users from "../../assets/data/Users";
 import { ScrollView, View, StyleSheet, Text, TouchableNativeFeedback} from "react-native";
-import { CollectionPin } from '@/assets/components/CollectionPin';
+import {CollectionPin} from "../../assets/components/CollectionPin";
 
 const createDummyCollectionPins = () => {
-  collectionNames = ["Best Brunch Spots in NYC", "Best Coffee Shops Ever", "Places I've seen in dreams", "Best College Bars in DC"];
+  const collectionNames = ["Best Brunch Spots in NYC", "Best Coffee Shops Ever", "Places I've seen in dreams", "Best College Bars in DC"];
   return users.map((u, index) => {
     return {user: u.name, userImage: u.profileImage, image: drops[index].primaryImage, name: collectionNames[index]};
   });

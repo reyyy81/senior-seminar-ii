@@ -2,21 +2,13 @@ import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function RootLayout() {
+  try {
   return (
     <Tabs
       // Global options for all tabs
       screenOptions={{
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",
-        headerShown: false,
-        tabBarStyle: {
-          height: "8%",
-          paddingLeft: 18,
-          paddingRight: 18,
-          alignItems: "center",
-          justifyContent: "center",
-          paddingTop: 5,
-        },
         // If you want to hide labels at some point in any screen:
         // tabBarShowLabel: false,
       }}
@@ -88,4 +80,8 @@ export default function RootLayout() {
       />
     </Tabs>
   );
+} catch (e) {
+  console.error('Layout Error:', e);
+  return <Text>Something broke</Text>;
+}
 }
