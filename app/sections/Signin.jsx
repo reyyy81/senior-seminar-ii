@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, Modal, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TextInput, Pressable, Modal, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig"; 
 
 export default function Signin({ visible, onClose = () => {} }) {
   const [email, setEmail] = useState("");
@@ -17,23 +19,28 @@ export default function Signin({ visible, onClose = () => {} }) {
     }
   };
 
-  // Handle Sign In (To Do: Fetch details from backend)
-  const handleSignin = () => {
-    console.log("User signed in:", { email, password });
-  
-    onClose();
-    setTimeout(() => {
-      router.push("/(tabs)/FypScreen");
-    }, 30); 
-    console.log('sign in complete, checking');
+  const handleSignin = async () => {
+    if (!email || !password || emailError) {
+      Alert.alert("Invalid Input", "Please enter a valid email and password.");
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      // console.log("User signed in:", email);
+      onClose();
+      setTimeout(() => {
+        router.push("/(tabs)/FypScreen");
+      }, 30);
+    } catch (error) {
+      Alert.alert("Sign In Failed", error.message);
+    }
   };
-  
 
   return (
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
-          
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
             <Ionicons name="close" size={24} color="black" />
           </TouchableOpacity>
@@ -147,4 +154,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
