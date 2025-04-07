@@ -16,7 +16,7 @@ export default function Signup({ visible, onClose = () => {} }) {
     console.log("User signed up:", { email, password});
     onClose();
     setTimeout(() => {
-      router.push("/sections/GetPicture");
+      router.push("/sections/SelectInterests");
     }, 300);
   };
 
@@ -53,6 +53,56 @@ export default function Signup({ visible, onClose = () => {} }) {
               <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color="gray" />
             </TouchableOpacity>
           </View>
+
+          {/* Date of Birth */}
+          {/* <View style={{ width: "100%", marginTop: 15 }}>
+            <Text style={{ marginBottom: 5 }}>Date of Birth</Text>
+            <Pressable
+              onPress={() => {
+                console.log("Opening date picker");
+                setTimeout(() => setOpen(true), 50);
+              }}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderWidth: 1, borderColor: "#ddd", padding: 12, borderRadius: 8 }}
+            >
+            <Text style={{ color: "black" }}>
+              {dob instanceof Date ? dob.toISOString().split("T")[0] : "mm/dd/yyyy"}
+            </Text>
+              <Ionicons name="calendar-outline" size={20} color="gray" />
+            </Pressable>
+          </View> */}
+
+          {/* Date Picker */}
+          {/* {open && (
+            <DatePicker
+              modal
+              open={open}
+              date={dob}
+              mode="date"
+              onConfirm={(date) => {
+                setOpen(false);
+                setDob(date);
+              }}
+              onCancel={() => setOpen(false)}
+              maximumDate={new Date()}
+            />
+            )} */}
+
+        {/* <Button title="Open" onPress={() => setOpen(true)} />
+        {open && (
+          <DatePicker
+            modal
+            open={open}
+            date={date}
+            onConfirm={(date) => {
+              setOpen(false)
+              setDate(date)
+            }}
+            onCancel={() => {
+              setOpen(false)
+            }}
+          />
+          )} */}
+
           {/* Continue Button */}
           <Pressable onPress={handleSignup} style={{ backgroundColor: "black", paddingVertical: 12, width: "100%", borderRadius: 8, alignItems: "center", marginTop: 20 }}>
             <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Continue</Text>
