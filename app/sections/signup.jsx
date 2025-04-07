@@ -1,23 +1,33 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, Modal, TouchableOpacity, Button } from "react-native";
+import { View, Text, TextInput, Pressable, Modal, TouchableOpacity, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig"; 
 
 export default function Signup({ visible, onClose = () => {} }) {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  // const [dob, setDob] = useState(null);
-  // const [open, setOpen] = useState(false);
 
-  // handle signup and navigate to select interests page
-  const handleSignup = () => {
-    console.log("User signed up:", { email, password});
-    onClose();
-    setTimeout(() => {
-      router.push("/sections/SelectInterests");
-    }, 300);
+  const handleSignup = async () => {
+    if (!email || !password || emailError) {
+      Alert.alert("Invalid Input", "Please enter a valid email and password.");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log("User signed up:", email);
+      onClose();
+      setTimeout(() => {
+        router.push("/sections/SelectInterests");
+      }, 300);
+    } catch (error) {
+      // console.error("Signup error:", error.message);
+      Alert.alert("Signup Failed", error.message);
+    }
   };
 
   return (
@@ -38,6 +48,7 @@ export default function Signup({ visible, onClose = () => {} }) {
             style={{ width: "100%", borderWidth: 1, borderColor: emailError ? "#E60023" : "#ddd", padding: 12, borderRadius: 8, marginTop: 15 }}
             placeholder="Email address"
             keyboardType="email-address"
+            autoCapitalize="none"
             value={email}
             onChangeText={(text) => {
               setEmail(text);
@@ -48,63 +59,24 @@ export default function Signup({ visible, onClose = () => {} }) {
 
           {/* Password Input */}
           <View style={{ flexDirection: "row", alignItems: "center", width: "100%", borderWidth: 1, borderColor: "#ddd", padding: 12, borderRadius: 8, marginTop: 15 }}>
-            <TextInput style={{ flex: 1 }} placeholder="Password" secureTextEntry={!showPassword} value={password} onChangeText={setPassword} />
+            <TextInput
+              style={{ flex: 1 }}
+              placeholder="Password"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+              autoCapitalize="none"
+            />
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
               <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color="gray" />
             </TouchableOpacity>
           </View>
 
-          {/* Date of Birth */}
-          {/* <View style={{ width: "100%", marginTop: 15 }}>
-            <Text style={{ marginBottom: 5 }}>Date of Birth</Text>
-            <Pressable
-              onPress={() => {
-                console.log("Opening date picker");
-                setTimeout(() => setOpen(true), 50);
-              }}
-              style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderWidth: 1, borderColor: "#ddd", padding: 12, borderRadius: 8 }}
-            >
-            <Text style={{ color: "black" }}>
-              {dob instanceof Date ? dob.toISOString().split("T")[0] : "mm/dd/yyyy"}
-            </Text>
-              <Ionicons name="calendar-outline" size={20} color="gray" />
-            </Pressable>
-          </View> */}
-
-          {/* Date Picker */}
-          {/* {open && (
-            <DatePicker
-              modal
-              open={open}
-              date={dob}
-              mode="date"
-              onConfirm={(date) => {
-                setOpen(false);
-                setDob(date);
-              }}
-              onCancel={() => setOpen(false)}
-              maximumDate={new Date()}
-            />
-            )} */}
-
-        {/* <Button title="Open" onPress={() => setOpen(true)} />
-        {open && (
-          <DatePicker
-            modal
-            open={open}
-            date={date}
-            onConfirm={(date) => {
-              setOpen(false)
-              setDate(date)
-            }}
-            onCancel={() => {
-              setOpen(false)
-            }}
-          />
-          )} */}
-
           {/* Continue Button */}
-          <Pressable onPress={handleSignup} style={{ backgroundColor: "black", paddingVertical: 12, width: "100%", borderRadius: 8, alignItems: "center", marginTop: 20 }}>
+          <Pressable
+            onPress={handleSignup}
+            style={{ backgroundColor: "black", paddingVertical: 12, width: "100%", borderRadius: 8, alignItems: "center", marginTop: 20 }}
+          >
             <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Continue</Text>
           </Pressable>
         </View>
