@@ -46,7 +46,7 @@ export function DropPin(props) {
 const styles = StyleSheet.create({
   drop: {width:"100%", position:"relative", marginBottom: 10},
   locationContainer: { flexDirection: "row"},
-  text: { marginLeft:2, fontSize: 12, fontFamily: "DMSans_400Regular",  width: 200, marginBottom: 10, color: "black"},
+  text: { marginLeft:2, fontSize: 12, fontFamily: "DMSans_400Regular",  marginBottom: 10, color: "black"},
   primary: { borderRadius: 8, marginBottom: 10, width: "100%", position:"relative", zIndex: 2},
   primaryTop: { borderRadius: 8, marginBottom: 10, width: "100%", position:"relative", zIndex: 2},
 

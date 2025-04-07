@@ -29,15 +29,16 @@ export default function RootLayout() {
     <UserProvider>
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name= "(tabs)" options={{ headerShown: false }}/>
       <Stack.Screen name="sections/SelectInterests" options={{ headerShown: true, title:"", headerShadowVisible: false }} />
       <Stack.Screen name="sections/GetLocation" options={{ headerShown: true, title: "Location", headerShadowVisible: false}} />
-
+      
       <Stack.Screen name="sections/Signin" options={{ headerShown: false }} />
       <Stack.Screen name="sections/Signup" options={{ headerShown: false }} />
       <Stack.Screen name="pages/PinPage" options={{ headerShown: true, title: "", headerShadowVisible: false}} />
-    
-      <Stack.Screen name= "(tabs)" options={{headerShown: false}}/>
+      <Stack.Screen name="pages/CollectionPage" options={{ headerShown: true, title: "", headerShadowVisible: false}} />
+
     </Stack>
-    </UserProvider>
+  </UserProvider>
   )
 }

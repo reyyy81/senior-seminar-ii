@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, Pressable, Image, StyleSheet } from "react-native";
-import { router } from "expo-router";
+import Signup from "./signup";
+import Signin from "./Signin";
 
 const images = [
   { id: "1", uri: "https://media.gettyimages.com/id/1313763325/photo/matcha-tea-with-kettle.jpg?s=612x612&w=0&k=20&c=CS1X9PhmletbUY_v_C591xwPSSj9-Lz4lN9S-gQW2JI=" },
@@ -12,6 +13,9 @@ const images = [
 ]
 
 export default function WelcomeScreen() {
+  const [isSignupVisible, setIsSignupVisible] = useState(false);
+  const [isSigninVisible, setIsSigninVisible] = useState(false);
+
 
   return (
     <View style={styles.container}>
@@ -23,18 +27,28 @@ export default function WelcomeScreen() {
 
       <Text style={styles.title}>Come explore with us!</Text>
 
-      <Pressable style={styles.signupButton} onPress={() => router.push("/sections/Signup")}>
+      <Pressable style={styles.signupButton} onPress={() => setIsSignupVisible(true)}>
         <Text style={styles.signupText}>Sign up</Text>
       </Pressable>
 
-      <Pressable style={styles.loginButton} onPress={() => router.push("/sections/Signin")}>
+      <Pressable style={styles.loginButton} onPress={() => setIsSigninVisible(true)}>
         <Text style={styles.loginText}>Log in</Text>
       </Pressable>
+
+      <Signup
+        visible={isSignupVisible}
+        onClose={() => setIsSignupVisible(false)}
+      />
+      <Signin
+        visible={isSigninVisible}
+        onClose={() => setIsSigninVisible(false)}
+      />
 
       <Text style={styles.footerText}>
         By continuing, you agree to Dropshot's Terms of Service and
         acknowledge you’ve read our Privacy Policy. Notice at collection.
       </Text>
+      
     </View>
   );
 }

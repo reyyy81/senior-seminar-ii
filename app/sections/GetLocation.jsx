@@ -13,7 +13,6 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import { UserContext } from "../../assets/components/UserContext";
 
 
-
 export default function SelectInterests() {
     const { userData, setUserData } = useContext(UserContext);
     const bottomSheetModalRef = useRef(null);

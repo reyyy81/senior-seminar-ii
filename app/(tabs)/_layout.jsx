@@ -9,6 +9,15 @@ export default function RootLayout() {
       screenOptions={{
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",
+        headerShown: false,
+        tabBarStyle: {
+          height: "8%",
+          paddingLeft: 18,
+          paddingRight: 18,
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: 5,
+        },
         // If you want to hide labels at some point in any screen:
         // tabBarShowLabel: false,
       }}
@@ -29,6 +38,9 @@ export default function RootLayout() {
       <Tabs.Screen
         name="SearchScreen"
         options={{
+          headerShown: true,
+          headerBackButtonDisplayMode: "minimal",
+          headerShadowVisible: false,
           title: "",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons

@@ -9,6 +9,8 @@ export const UserProvider = ({ children }) => {
     location: "",
     name: "",
     email: "",
+    image: "",
+    interests: [],
   });
 
   return (

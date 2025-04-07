@@ -1,9 +1,9 @@
 import { DropPin } from './DropPin';
 import {React} from "react";
 import { View, StyleSheet} from "react-native";
-import drops from "../data/Drops";
 
-export function DropsLayout() {
+export function DropsLayout(props) {
+    const  drops = props.drops;
     return (
           <View style = {styles.container}> 
             <View style= {styles.leftColumn}>
