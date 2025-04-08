@@ -1,108 +1,39 @@
 import 'react-native-get-random-values';
+import { useEffect, useState, useContext } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseConfig";
 import WelcomeScreen from "./sections/WelcomeScreen";
+// import FypScreen from './(tabs)/FypScreen';
+import GetPicture from "./sections/GetPicture";
+import { UserContext } from "../assets/components/UserContext";
 
 
 export default function Index() {
-  return ( 
-      <WelcomeScreen/>
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [user, setUser] = useState();
+  const { userData, setUserData } = useContext(UserContext);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!user);
+      setUser(user); 
+      if (user) {
+        setUserData((prev) => ({ ...prev, email: user.email })); // Update email in context
+        console.log("User is logged in");
+      } else {
+        console.log("User is logged out");
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup the listener on unmount
+  }, []);
+
+  if (isLoggedIn === null) {
+    return null; // Show nothing or a loading spinner while checking auth state
+  }
+
+  // If user is logged in, show the FypScreen, else show the WelcomeScreen
+  // TODO: Pull from database to check if user has completed onboarding
+  // if done onboarding, show FypScreen, else show GetPicture
+  return isLoggedIn ? <GetPicture /> :  <WelcomeScreen />;
 }
-
-
-
-
-
-
-
-
-
-// import { Text, View, Pressable } from "react-native";
-// import { router } from "expo-router";
-// import { Ionicons } from "@expo/vector-icons"; 
-// import Signup from "./sections/signup"; 
-// import Signin from "./sections/signin";
-// import { useState } from "react";
-// import WelcomeScreen from "./sections/WelcomeScreen";
-
-// // import BottomTabs from "./components/BottomTabs"
-
-// export default function Index() {
-//   const [showSignup, setShowSignup] = useState(false);
-//   const [showSignin, setShowSignin] = useState(false);
-
-
-//   return (
-//     <View
-//       style={{
-//         flex: 1,
-//         justifyContent: "center",
-//         alignItems: "center",
-//       }}
-//     >
-//       {/*  Ensures Signup component is properly rendered with onClose */}
-//       {showSignup && <Signup visible={showSignup} onClose={() => setShowSignup(false)} />}
-//       {showSignin && <Signin visible={showSignin} onClose={() => setShowSignin(false)} />}
-
-
-//       <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20 }}>HomePage</Text>
-
-//       {/*  Signup Button */}
-//       <Pressable
-//         onPress={() => setShowSignup(true)}
-//         style={({ pressed }) => ({
-//           paddingVertical: 12,
-//           paddingHorizontal: 20,
-//           borderRadius: 10,
-//           backgroundColor: pressed ? "#black" : "black", 
-//         })}
-//       >
-//         <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>Sign Up</Text>
-//       </Pressable>
-
-//         {/*  Sign In Button */}
-//         <Pressable
-//         onPress={() => setShowSignin(true)}
-//         style={({ pressed }) => ({
-//           paddingVertical: 12,
-//           paddingHorizontal: 20,
-//           borderRadius: 10,
-//           backgroundColor: pressed ? "#ddd" : "#f0f0f0",
-//           marginBottom: 10,
-//         })}
-//       >
-//         <Text style={{ color: "black", fontWeight: "bold", fontSize: 16 }}>Sign In</Text>
-//       </Pressable>
-
-
-//       {/* User Profile Button */}
-//       <Pressable
-//         onPress={() => router.push("./sections/ProfileScreen")}
-//         style={({ pressed }) => ({
-//           marginTop: 20,
-//           padding: 10,
-//           borderRadius: 10,
-//           backgroundColor: pressed ? "#ddd" : "#f0f0f0",
-//         })}
-//       >
-//         <Ionicons name="person-circle-outline" size={40} color="black" />
-//       </Pressable>
-
-//       <Pressable
-//         onPress={() => router.push("./sections/FypScreen")}
-//         style={({ pressed }) => ({
-//           marginTop: 20,
-//           padding: 10,
-//           borderRadius: 10,
-//           backgroundColor: pressed ? "#ddd" : "#f0f0f0",
-//         })}
-//       >
-//         <Text>HomeScreen nav</Text>
-//         {/* <Ionicons name="person-circle-outline" size={40} color="black" /> */}
-//       </Pressable>
-
-//       <Pressable>
-//         <Text> Hello </Text>
-//       </Pressable>
-//     </View>
-//   );
-// }

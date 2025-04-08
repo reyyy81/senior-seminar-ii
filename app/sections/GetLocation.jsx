@@ -17,12 +17,8 @@ export default function SelectInterests() {
     const { userData, setUserData } = useContext(UserContext);
     const bottomSheetModalRef = useRef(null);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-    const [location, setLocation] = useState("Enter your location ");
+    const [location, setLocation] = useState("");
 
-    const handleLocationSelect = (location) => {
-      setUserData((prev) => ({ ...prev, location })); // Update location in context
-      console.log("Updated User Data:", userData);
-    };
   // callbacks
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -32,11 +28,14 @@ export default function SelectInterests() {
     setIsBottomSheetOpen(index >= 0);
   }, []);
 
-   const uploadUseraData = () => {
+   const uploadUserData = () => {
     // TODO: Upload user data to database.
-     handleLocationSelect(location);
-     console.log(userData);
-     router.push("/(tabs)/FypScreen");
+      setUserData((prev) => {
+        const updatedData = { ...prev, location: location };
+        console.log("Updated User Data:", updatedData); // Log the updated data
+        return updatedData;
+      });
+      router.push("/(tabs)/FypScreen");
    }
 
   // renders
@@ -67,12 +66,12 @@ export default function SelectInterests() {
             height:40,
           }}
         >
-          <Text style={{ color: "black", fontSize: 14, width: 270}} numberOfLines={1} ellipsizeMode='tail'>{location}</Text>
+          <Text style={{ color: "black", fontSize: 14, width: 270, fontFamily: "DMSans_400Regular"}} numberOfLines={1} ellipsizeMode='tail'>{location ? location : "Enter your location"}</Text>
           <Ionicons name="chevron-down" size={16} color="black" />
         </Pressable>
         </View>
-        { location !== "Enter your location" && 
-           <TouchableOpacity style= {{marginTop:40, marginRight:20}} onPress={uploadUseraData}>
+        { location && 
+           <TouchableOpacity style= {{marginTop:40, marginRight:20}} onPress={uploadUserData}>
                 <Ionicons name="chevron-forward-circle" size= {45} color="#aa1945" style={{alignSelf:"flex-end"}}/>
            </TouchableOpacity>
            }

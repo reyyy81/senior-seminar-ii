@@ -22,7 +22,7 @@ export default function Signup({ visible, onClose = () => {} }) {
       console.log("User signed up:", email);
       onClose();
       setTimeout(() => {
-        router.push("/sections/SelectInterests");
+        router.push("/sections/GetPicture");
       }, 300);
     } catch (error) {
       // console.error("Signup error:", error.message);

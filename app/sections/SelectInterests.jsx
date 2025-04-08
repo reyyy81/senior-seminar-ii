@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { router } from "expo-router";
+import { UserContext } from "../../assets/components/UserContext";
+
 
 
 
@@ -8,6 +10,8 @@ const genres = ["Travel", "Hiking", "Self-care", "Public Spaces", "Hanging out",
 
 export default function SelectInterests() {
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const { userData, setUserData } = useContext(UserContext);
+  
 
   const toggleGenre = (genre) => {
     setSelectedGenres((prevSelected) =>
@@ -16,6 +20,15 @@ export default function SelectInterests() {
         : [...prevSelected, genre]
     );
   };
+
+  const handleNext = () => {
+    setUserData((prev) => {
+      const updatedData = { ...prev, interests: selectedGenres };
+      console.log("Updated User Data:", updatedData); // Log the updated data
+      return updatedData;
+    });
+    router.push("/sections/GetLocation"); // Navigate to the next screen
+  }
 
   return (
     <View style={styles.container}>
@@ -37,7 +50,7 @@ export default function SelectInterests() {
       </View>
       {selectedGenres.length >= 3 && (
         <Pressable style={styles.nextButton} 
-        onPress={() => router.push("/sections/GetLocation")}> 
+        onPress={() => handleNext()}> 
           <Text style={styles.nextButtonText}>Next</Text>
         </Pressable>
       )}
