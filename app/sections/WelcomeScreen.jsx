@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { View, Text, Pressable, Image, StyleSheet } from "react-native";
-import Signup from "./signup";
-import Signin from "./signin";
+import Signup from "./Signup";
+import Signin from "./Signin";
 
 const images = [
   { id: "1", uri: "https://media.gettyimages.com/id/1313763325/photo/matcha-tea-with-kettle.jpg?s=612x612&w=0&k=20&c=CS1X9PhmletbUY_v_C591xwPSSj9-Lz4lN9S-gQW2JI=" },
